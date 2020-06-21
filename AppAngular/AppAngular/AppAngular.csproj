@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <None Remove="ClientApp\src\app\components\button\Button.component.ts" />
+    <None Remove="ClientApp\src\app\components\diasSemana\diasSemana.component.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,6 +36,7 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\components\button\Button.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\components\diasSemana\diasSemana.component.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

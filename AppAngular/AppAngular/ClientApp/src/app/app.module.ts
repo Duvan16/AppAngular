@@ -13,6 +13,7 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 //Registrar el componente creado
 
 import { ButtonAgregar } from './components/button/Button.component';
+import { DiasSemana } from './components/diasSemana/diasSemana.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ButtonAgregar } from './components/button/Button.component';
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    ButtonAgregar
+    ButtonAgregar,
+    DiasSemana
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
