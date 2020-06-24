@@ -33,6 +33,7 @@ import { DiasSemana } from './components/diasSemana/diasSemana.component';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'diasSemana', component: DiasSemana },
     ])
   ],
   providers: [],
