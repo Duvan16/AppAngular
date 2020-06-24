@@ -14,6 +14,8 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 
 import { ButtonAgregar } from './components/button/Button.component';
 import { DiasSemana } from './components/diasSemana/diasSemana.component';
+import { TablaProductoComponent } from './components/tabla-producto/tabla-producto.component';
+import { ProductoService } from './services/Producto.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { DiasSemana } from './components/diasSemana/diasSemana.component';
     CounterComponent,
     FetchDataComponent,
     ButtonAgregar,
-    DiasSemana
+    DiasSemana,
+    TablaProductoComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -36,7 +39,7 @@ import { DiasSemana } from './components/diasSemana/diasSemana.component';
       { path: 'diasSemana', component: DiasSemana },
     ])
   ],
-  providers: [],
+  providers: [ProductoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
