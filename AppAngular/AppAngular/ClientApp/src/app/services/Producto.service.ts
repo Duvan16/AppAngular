@@ -20,5 +20,10 @@ export class ProductoService {
       .map(res => res.json());
   }
 
+  public getFiltroProductoPorNombre(nombre) {
+    return this.http.get(this.urlBase + "api/Producto/filtrarProductosPorNombre/" + nombre)
+      .map(res => res.json());
+  }
+
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ProductoService } from '../../services/Producto.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { ProductoService } from '../../services/Producto.service';
 })
 export class TablaProductoComponent implements OnInit {
 
-  productos: any;
+  @Input() productos: any;
   cabeceras: string[] = ["Id Producto", "Nombre", "Precio", "Stock", "Nombre Categoría"];
 
   constructor(private producto: ProductoService) { }
