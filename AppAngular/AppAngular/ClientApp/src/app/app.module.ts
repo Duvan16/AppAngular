@@ -16,6 +16,7 @@ import { ButtonAgregar } from './components/button/Button.component';
 import { DiasSemana } from './components/diasSemana/diasSemana.component';
 import { TablaProductoComponent } from './components/tabla-producto/tabla-producto.component';
 import { ProductoService } from './services/Producto.service';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ProductoService } from './services/Producto.service';
     TablaProductoComponent
   ],
   imports: [
+    HttpModule,
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
