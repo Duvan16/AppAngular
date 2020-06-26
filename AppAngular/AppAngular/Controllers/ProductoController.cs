@@ -40,7 +40,6 @@ namespace AppAngular.Controllers
             }
         }
 
-
         [HttpGet]
         [Route("api/Producto/filtrarProductosPorNombre/{nombre}")]
         public IEnumerable<ProductoCLS> filtrarProductosPorNombre(string nombre)
@@ -53,6 +52,31 @@ namespace AppAngular.Controllers
                                            categoria.Iidcategoria
                                            where producto.Bhabilitado == 1
                                           && producto.Nombre.ToLower().Contains(nombre.ToLower())
+                                           select new ProductoCLS
+                                           {
+                                               idproducto = producto.Iidproducto,
+                                               nombre = producto.Nombre,
+                                               precio = (decimal)producto.Precio,
+                                               stock = (int)producto.Stock,
+                                               nombreCategoria = categoria.Nombre
+                                           }).ToList();
+
+                return lista;
+            }
+        }
+
+        [HttpGet]
+        [Route("api/Producto/filtrarProductosPorCategoria/{idCategoria}")]
+        public IEnumerable<ProductoCLS> filtrarProductosPorCategoria(int idCategoria)
+        {
+            using (BDRestauranteContext bd = new BDRestauranteContext())
+            {
+                List<ProductoCLS> lista = (from producto in bd.Producto
+                                           join categoria in bd.Categoria
+                                           on producto.Iidcategoria equals
+                                           categoria.Iidcategoria
+                                           where producto.Bhabilitado == 1
+                                          && producto.Iidcategoria == idCategoria
                                            select new ProductoCLS
                                            {
                                                idproducto = producto.Iidproducto,

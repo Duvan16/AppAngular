@@ -19,6 +19,9 @@ import { ProductoService } from './services/Producto.service';
 import { HttpModule } from '@angular/http';
 import { BuscadorProductoNombreComponent } from './components/buscador-producto-nombre/buscador-producto-nombre.component';
 import { FiltradoProductoNombreComponent } from './components/filtrado-producto-nombre/filtrado-producto-nombre.component';
+import { FiltradoProductoCategoriaComponent } from './components/filtrado-producto-categoria/filtrado-producto-categoria.component';
+import { BuscadorProductoCategoriaComponent } from './components/buscador-producto-categoria/buscador-producto-categoria.component';
+import { CategoriaService } from './services/categoria.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,9 @@ import { FiltradoProductoNombreComponent } from './components/filtrado-producto-
     DiasSemana,
     TablaProductoComponent,
     BuscadorProductoNombreComponent,
-    FiltradoProductoNombreComponent
+    FiltradoProductoNombreComponent,
+    FiltradoProductoCategoriaComponent,
+    BuscadorProductoCategoriaComponent
   ],
   imports: [
     HttpModule,
@@ -39,13 +44,13 @@ import { FiltradoProductoNombreComponent } from './components/filtrado-producto-
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: 'filtradoProductoCategoria', component: FiltradoProductoCategoriaComponent, pathMatch: 'full' },
       { path: 'filtradoProductoNombre', component: FiltradoProductoNombreComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'diasSemana', component: DiasSemana },
     ])
   ],
-  providers: [ProductoService],
+  providers: [ProductoService, CategoriaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
