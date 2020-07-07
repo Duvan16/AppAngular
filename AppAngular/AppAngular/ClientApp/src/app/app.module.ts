@@ -22,6 +22,10 @@ import { FiltradoProductoNombreComponent } from './components/filtrado-producto-
 import { FiltradoProductoCategoriaComponent } from './components/filtrado-producto-categoria/filtrado-producto-categoria.component';
 import { BuscadorProductoCategoriaComponent } from './components/buscador-producto-categoria/buscador-producto-categoria.component';
 import { CategoriaService } from './services/categoria.service';
+import { TablaPersonaComponent } from './components/tabla-persona/tabla-persona.component';
+import { BuscadorPersonaNombreCompletoComponent } from './components/buscador-persona-nombre-completo/buscador-persona-nombre-completo.component';
+import { FiltradoPersonaNombreCompletoComponent } from './components/filtrado-persona-nombre-completo/filtrado-persona-nombre-completo.component';
+import { PersonaService } from './services/persona.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +40,10 @@ import { CategoriaService } from './services/categoria.service';
     BuscadorProductoNombreComponent,
     FiltradoProductoNombreComponent,
     FiltradoProductoCategoriaComponent,
-    BuscadorProductoCategoriaComponent
+    BuscadorProductoCategoriaComponent,
+    TablaPersonaComponent,
+    BuscadorPersonaNombreCompletoComponent,
+    FiltradoPersonaNombreCompletoComponent
   ],
   imports: [
     HttpModule,
@@ -46,11 +53,11 @@ import { CategoriaService } from './services/categoria.service';
     RouterModule.forRoot([
       { path: 'filtradoProductoCategoria', component: FiltradoProductoCategoriaComponent, pathMatch: 'full' },
       { path: 'filtradoProductoNombre', component: FiltradoProductoNombreComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'FiltradoPersonaNombreCompleto', component: FiltradoPersonaNombreCompletoComponent },
       { path: 'diasSemana', component: DiasSemana },
     ])
   ],
-  providers: [ProductoService, CategoriaService],
+  providers: [ProductoService, CategoriaService, PersonaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
