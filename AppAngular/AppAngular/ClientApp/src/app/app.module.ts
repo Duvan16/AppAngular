@@ -26,6 +26,10 @@ import { TablaPersonaComponent } from './components/tabla-persona/tabla-persona.
 import { BuscadorPersonaNombreCompletoComponent } from './components/buscador-persona-nombre-completo/buscador-persona-nombre-completo.component';
 import { FiltradoPersonaNombreCompletoComponent } from './components/filtrado-persona-nombre-completo/filtrado-persona-nombre-completo.component';
 import { PersonaService } from './services/persona.service';
+import { BuscadorUsuarioTipoUsuarioComponent } from './components/buscador-usuario-tipo-usuario/buscador-usuario-tipo-usuario.component';
+import { FiltradoUsuarioTipoUsuarioComponent } from './components/filtrado-usuario-tipo-usuario/filtrado-usuario-tipo-usuario.component';
+import { TablaUsuarioComponent } from './components/tabla-usuario/tabla-usuario.component';
+import { UsuarioService } from './services/usuario.service';
 
 @NgModule({
   declarations: [
@@ -43,7 +47,10 @@ import { PersonaService } from './services/persona.service';
     BuscadorProductoCategoriaComponent,
     TablaPersonaComponent,
     BuscadorPersonaNombreCompletoComponent,
-    FiltradoPersonaNombreCompletoComponent
+    FiltradoPersonaNombreCompletoComponent,
+    BuscadorUsuarioTipoUsuarioComponent,
+    FiltradoUsuarioTipoUsuarioComponent,
+    TablaUsuarioComponent
   ],
   imports: [
     HttpModule,
@@ -54,10 +61,10 @@ import { PersonaService } from './services/persona.service';
       { path: 'filtradoProductoCategoria', component: FiltradoProductoCategoriaComponent, pathMatch: 'full' },
       { path: 'filtradoProductoNombre', component: FiltradoProductoNombreComponent },
       { path: 'FiltradoPersonaNombreCompleto', component: FiltradoPersonaNombreCompletoComponent },
-      { path: 'diasSemana', component: DiasSemana },
+      { path: 'filtradoUsuarioTipo', component: FiltradoUsuarioTipoUsuarioComponent },
     ])
   ],
-  providers: [ProductoService, CategoriaService, PersonaService],
+  providers: [ProductoService, CategoriaService, PersonaService, UsuarioService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
