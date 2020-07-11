@@ -9,6 +9,7 @@ import { PersonaService } from '../../services/persona.service';
 export class TablaPersonaComponent implements OnInit {
 
   @Input() personas: any;
+  @Input() isMantenimiento = false;
   cabeceras: string[] = ["Id Persona", "Nombre Completo", "Telefono","Correo"];
   constructor(private personaService: PersonaService) { }
 

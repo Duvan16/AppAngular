@@ -32,6 +32,11 @@
                 <span class='glyphicon glyphicon-th-list'></span> Filtrado usuario por Tipo
               </a>
             </li>
+            <li [routerLinkActive]='["link-active"]'>
+              <a [routerLink]='["/mantenimiento-persona"]' (click)='collapse()'>
+                <span class='glyphicon glyphicon-th-list'></span> Mantenimiento Persona
+              </a>
+            </li>
           </ul>
         </div>
     </div>

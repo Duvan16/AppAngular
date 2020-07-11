@@ -20,4 +20,9 @@ export class PersonaService {
       .map(res => res.json());
   }
 
+  public agregarPersona(persona) {
+    var url = this.urlBase + "api/Persona/guardarPersona";
+    return this.http.post(url, persona).map(res => res.json());
+  }
+
 }

@@ -13,5 +13,8 @@ namespace AppAngular.Clases
         public string correo { get; set; }
         public DateTime dateTime { get; set; }
         public int bhabilitado { get; set; }
+        public string nombre { get; set; }
+        public string apPaterno { get; set; }
+        public string apMaterno { get; set; }
     }
 }
