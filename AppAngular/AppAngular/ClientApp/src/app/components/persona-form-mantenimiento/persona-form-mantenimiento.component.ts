@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { PersonaService } from '../../services/persona.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-persona-form-mantenimiento',
@@ -11,8 +11,11 @@ import { Router } from '@angular/router';
 export class PersonaFormMantenimientoComponent implements OnInit {
 
   persona: FormGroup;
+  titulo: string = "";
+  parametro: string;
 
-  constructor(private personaService: PersonaService, private router: Router) {
+  constructor(private personaService: PersonaService, private router: Router,
+    private activatedRoute: ActivatedRoute) {
     this.persona = new FormGroup(
       {
         'iidpersona': new FormControl("0"),
@@ -20,16 +23,46 @@ export class PersonaFormMantenimientoComponent implements OnInit {
         'apPaterno': new FormControl("", [Validators.required, Validators.maxLength(150)]),
         'apMaterno': new FormControl("", [Validators.required, Validators.maxLength(150)]),
         'telefono': new FormControl("", [Validators.required, Validators.maxLength(10)]),
-        'correo': new FormControl("", [Validators.required, Validators.maxLength(150), Validators.pattern("^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.([a-zA-Z]{2,4})+$")])
+        'correo': new FormControl("", [Validators.required, Validators.maxLength(150), Validators.pattern("^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.([a-zA-Z]{2,4})+$")]),
+        'fechaNacimiento': new FormControl("", Validators.required)
       }
     );
+
+    this.activatedRoute.params.subscribe(parametro => {
+      this.parametro = parametro["id"];
+      if (this.parametro == "nuevo") {
+        this.titulo = "Agregando una nueva persona";
+      } else {
+        this.titulo = "Editando una persona";
+      }
+    });
   }
 
   ngOnInit() {
+    //Programar (Recupera la información)
+    if (this.parametro != "nuevo") {
+      this.personaService.recuperarPersona(this.parametro).subscribe(param => {
+        this.persona.controls["iidpersona"].setValue(param.iidpersona);
+        this.persona.controls["nombre"].setValue(param.nombre);
+        this.persona.controls["apPaterno"].setValue(param.apPaterno);
+        this.persona.controls["apMaterno"].setValue(param.apMaterno);
+        this.persona.controls["telefono"].setValue(param.telefono);
+        this.persona.controls["correo"].setValue(param.correo);
+        this.persona.controls["fechaNacimiento"].setValue(param.fechaCadena);
+      });
+    }
   }
 
   guardarDatos() {
     if (this.persona.valid) {
+
+      var fechaNac = this.persona.controls["fechaNacimiento"].value.split("-");
+      var anio = fechaNac[0];
+      var mes = fechaNac[1];
+      var dia = fechaNac[2];
+
+      this.persona.controls["fechaNacimiento"].setValue(mes + "/" + dia + "/" + anio);
+
       this.personaService.agregarPersona(this.persona.value).subscribe(data => { this.router.navigate(["/mantenimiento-persona"]) });
     }
   }
