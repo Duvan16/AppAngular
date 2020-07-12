@@ -10,13 +10,23 @@ export class TablaPersonaComponent implements OnInit {
 
   @Input() personas: any;
   @Input() isMantenimiento = false;
-  cabeceras: string[] = ["Id Persona", "Nombre Completo", "Telefono","Correo"];
+  cabeceras: string[] = ["Id Persona", "Nombre Completo", "Telefono", "Correo"];
   constructor(private personaService: PersonaService) { }
 
   ngOnInit() {
     this.personaService.getPersona().subscribe(
       data => this.personas = data
     );
+  }
+
+  eliminar(idPersona) {
+    if (confirm("Desea eliminar realmente?")) {
+      this.personaService.eliminar(idPersona).subscribe(data => {
+        this.personaService.getPersona().subscribe(
+          data => this.personas = data
+        );
+      });
+    }
   }
 
 }

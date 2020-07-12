@@ -11,7 +11,7 @@ namespace AppAngular.Clases
         public string nombreCompleto { get; set; }
         public string telefono { get; set; }
         public string correo { get; set; }
-        public DateTime dateTime { get; set; }
+        public DateTime fechaNacimiento { get; set; }
         public int bhabilitado { get; set; }
         public string nombre { get; set; }
         public string apPaterno { get; set; }

@@ -30,4 +30,9 @@ export class PersonaService {
       .map(res => res.json());
   }
 
+  public eliminar(idPersona) {
+    return this.http.get(this.urlBase + "api/Persona/eliminarPersona/" + idPersona)
+      .map(res => res.json());
+  }
+
 }

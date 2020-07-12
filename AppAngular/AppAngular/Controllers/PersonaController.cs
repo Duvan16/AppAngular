@@ -104,6 +104,7 @@ namespace AppAngular.Controllers
                         oPersona.Apmaterno = oPersonaCLS.apMaterno;
                         oPersona.Correo = oPersonaCLS.correo;
                         oPersona.Telefono = oPersonaCLS.telefono;
+                        oPersona.Fechanacimiento = oPersonaCLS.fechaNacimiento;
                         bd.SaveChanges();
                         rpta = 1;
                     }
@@ -142,5 +143,26 @@ namespace AppAngular.Controllers
 
         }
 
+        [HttpGet]
+        [Route("api/Persona/eliminarPersona/{idPersona}")]
+        public int eliminarPersona(int idPersona)
+        {
+            int rpta = 0;
+            try
+            {
+                using (BDRestauranteContext bd = new BDRestauranteContext())
+                {
+                    Persona oPersona = bd.Persona.Where(p => p.Iidpersona == idPersona).First();
+                    oPersona.Bhabilitado = 0;
+                    bd.SaveChanges();
+                    rpta = 1;
+                }
+            }
+            catch (Exception)
+            {
+                rpta = 0;
+            }
+            return rpta;
+        }
     }
 }
