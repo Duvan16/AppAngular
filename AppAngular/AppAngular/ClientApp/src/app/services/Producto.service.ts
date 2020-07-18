@@ -30,5 +30,14 @@ export class ProductoService {
       .map(res => res.json());
   }
 
+  public obtenerProductoPorId(idProducto) {
+    return this.http.get("api/Producto/obtenerProductoPorId/" + idProducto)
+      .map(res => res.json());
+  }
+
+  public listarMarcas() {
+    return this.http.get("api/Producto/listarMarcas").map(res => res.json());
+  }
+
 
 }

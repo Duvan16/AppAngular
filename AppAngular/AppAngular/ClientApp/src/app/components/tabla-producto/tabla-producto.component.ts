@@ -9,6 +9,7 @@ import { ProductoService } from '../../services/Producto.service';
 export class TablaProductoComponent implements OnInit {
 
   @Input() productos: any;
+  @Input() isMantenimiento = false;
   cabeceras: string[] = ["Id Producto", "Nombre", "Precio", "Stock", "Nombre Categoría"];
 
   constructor(private producto: ProductoService) { }

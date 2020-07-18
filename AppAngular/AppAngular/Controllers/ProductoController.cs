@@ -89,5 +89,53 @@ namespace AppAngular.Controllers
                 return lista;
             }
         }
+
+        [HttpGet]
+        [Route("api/Producto/listarMarcas")]
+        public IEnumerable<MarcaCLS> listarMarcas()
+        {
+            using (BDRestauranteContext bd = new BDRestauranteContext())
+            {
+                List<MarcaCLS> listaMarca = (from marca in bd.Marca
+                                             where marca.Bhabilitado == 1
+                                             select new MarcaCLS
+                                             {
+                                                 iidmarca = marca.Iidmarca,
+                                                 nombre = marca.Nombre
+                                             }).ToList();
+
+                return listaMarca;
+            }
+        }
+
+        [HttpGet]
+        [Route("api/Producto/obtenerProductoPorId/{idProducto}")]
+        public ProductoCLS obtenerProductoPorId(int idProducto)
+        {
+            try
+            {
+                using (BDRestauranteContext bd = new BDRestauranteContext())
+                {
+                    ProductoCLS oProductoCLS = (from producto in bd.Producto
+                                                where producto.Bhabilitado == 1
+                                                && producto.Iidproducto == idProducto
+                                                select new ProductoCLS
+                                                {
+                                                    idproducto = producto.Iidproducto,
+                                                    nombre = producto.Nombre,
+                                                    idcategoria = (int)producto.Iidcategoria,
+                                                    idmarca = (int)producto.Iidmarca,
+                                                    precio = (decimal)producto.Precio,
+                                                    stock = (int)producto.Stock
+                                                }).First();
+
+                    return oProductoCLS;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

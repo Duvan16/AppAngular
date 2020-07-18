@@ -32,6 +32,8 @@ import { TablaUsuarioComponent } from './components/tabla-usuario/tabla-usuario.
 import { UsuarioService } from './services/usuario.service';
 import { MantenimientoPersonaComponent } from './components/mantenimiento-persona/mantenimiento-persona.component';
 import { PersonaFormMantenimientoComponent } from './components/persona-form-mantenimiento/persona-form-mantenimiento.component';
+import { MantenimientoProductoComponent } from './components/mantenimiento-producto/mantenimiento-producto.component';
+import { ProductoFormMantenimientoComponent } from './components/producto-form-mantenimiento/producto-form-mantenimiento.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,9 @@ import { PersonaFormMantenimientoComponent } from './components/persona-form-man
     FiltradoUsuarioTipoUsuarioComponent,
     TablaUsuarioComponent,
     MantenimientoPersonaComponent,
-    PersonaFormMantenimientoComponent
+    PersonaFormMantenimientoComponent,
+    MantenimientoProductoComponent,
+    ProductoFormMantenimientoComponent
   ],
   imports: [
     HttpModule,
@@ -68,7 +72,9 @@ import { PersonaFormMantenimientoComponent } from './components/persona-form-man
       { path: 'FiltradoPersonaNombreCompleto', component: FiltradoPersonaNombreCompletoComponent },
       { path: 'filtradoUsuarioTipo', component: FiltradoUsuarioTipoUsuarioComponent },
       { path: 'mantenimiento-persona', component: MantenimientoPersonaComponent },
-      { path: 'persona-form-mantenimiento/:id', component: PersonaFormMantenimientoComponent }
+      { path: 'persona-form-mantenimiento/:id', component: PersonaFormMantenimientoComponent },
+      { path: 'mantenimiento-producto', component: MantenimientoProductoComponent },
+      { path: 'producto-form-mantenimiento/:id', component: ProductoFormMantenimientoComponent }
     ])
   ],
   providers: [ProductoService, CategoriaService, PersonaService, UsuarioService],
