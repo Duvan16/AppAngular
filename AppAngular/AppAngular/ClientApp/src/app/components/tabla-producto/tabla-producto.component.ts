@@ -10,6 +10,7 @@ export class TablaProductoComponent implements OnInit {
 
   @Input() productos: any;
   @Input() isMantenimiento = false;
+  p: number = 1;
   cabeceras: string[] = ["Id Producto", "Nombre", "Precio", "Stock", "Nombre Categoría"];
 
   constructor(private producto: ProductoService) { }
@@ -22,12 +23,14 @@ export class TablaProductoComponent implements OnInit {
   }
 
   eliminarProducto(idProducto) {
-    this.producto.eliminarProducto(idProducto).subscribe(p => {
-      //
-      this.producto.getProducto().subscribe(
-        data => this.productos = data
-      );
-    });
+    if (confirm("¿Desea eliminar el registro?")) {
+      this.producto.eliminarProducto(idProducto).subscribe(p => {
+        //
+        this.producto.getProducto().subscribe(
+          data => this.productos = data
+        );
+      });
+    }
   }
 
 }

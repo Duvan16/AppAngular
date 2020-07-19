@@ -11,6 +11,7 @@ export class TablaPersonaComponent implements OnInit {
   @Input() personas: any;
   @Input() isMantenimiento = false;
   cabeceras: string[] = ["Id Persona", "Nombre Completo", "Telefono", "Correo"];
+  p: number = 1;
   constructor(private personaService: PersonaService) { }
 
   ngOnInit() {
