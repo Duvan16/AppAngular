@@ -165,5 +165,33 @@ namespace AppAngular.Controllers
             }
             return rpta;
         }
+
+        [HttpGet]
+        [Route("api/Persona/validarCorreo/{id}/{correo}")]
+        public int validarCorreo(int id, string correo)
+        {
+            int rpta = 0;
+            try
+            {
+                using (BDRestauranteContext bd = new BDRestauranteContext())
+                {
+                    //Nuevo
+                    if (id == 0)
+                    {
+                        rpta = bd.Persona.Where(p => p.Correo.ToLower() == correo.ToLower()).Count();
+                    }
+                    //Editar
+                    else
+                    {
+                        rpta = bd.Persona.Where(p => p.Correo.ToLower() == correo.ToLower() && p.Iidpersona != id).Count();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                rpta = 0;
+            }
+            return rpta;
+        }
     }
 }

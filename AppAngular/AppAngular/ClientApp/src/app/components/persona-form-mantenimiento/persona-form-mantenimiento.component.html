@@ -58,6 +58,9 @@
         <div style="color:red" *ngIf="persona.controls['correo'].errors?.pattern">
           El correo no cumple con el patron correcto.
         </div>
+        <div style="color:red" *ngIf="persona.controls['correo'].errors?.yaExiste">
+          El correo ya existe en la base de datos.
+        </div>
       </div>
       <div class="form-group">
         <label>Fecha Nacimiento</label>

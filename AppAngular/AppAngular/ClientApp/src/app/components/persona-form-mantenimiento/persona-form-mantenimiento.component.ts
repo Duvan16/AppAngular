@@ -23,7 +23,7 @@ export class PersonaFormMantenimientoComponent implements OnInit {
         'apPaterno': new FormControl("", [Validators.required, Validators.maxLength(150)]),
         'apMaterno': new FormControl("", [Validators.required, Validators.maxLength(150)]),
         'telefono': new FormControl("", [Validators.required, Validators.maxLength(10)]),
-        'correo': new FormControl("", [Validators.required, Validators.maxLength(150), Validators.pattern("^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.([a-zA-Z]{2,4})+$")]),
+        'correo': new FormControl("", [Validators.required, Validators.maxLength(150), Validators.pattern("^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.([a-zA-Z]{2,4})+$")], this.noRepetirCorreoInsertar.bind(this)),
         'fechaNacimiento': new FormControl("", Validators.required)
       }
     );
@@ -66,5 +66,26 @@ export class PersonaFormMantenimientoComponent implements OnInit {
       this.personaService.agregarPersona(this.persona.value).subscribe(data => { this.router.navigate(["/mantenimiento-persona"]) });
     }
   }
+
+  noRepetirCorreoInsertar(control: FormControl) {
+
+    var promesa = new Promise((resolve, reject) => {
+      if (control.value != "" && control.value != null) {
+        this.personaService.validarCorreo(this.persona.controls["iidpersona"].value, control.value)
+          .subscribe(data => {
+            if (data == 1) {
+              resolve({ yaExiste: true });
+            } else {
+              resolve(null);
+            }
+          })
+      }
+    });
+
+    return promesa;
+
+  }
+
+
 
 }

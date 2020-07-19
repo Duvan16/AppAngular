@@ -35,4 +35,9 @@ export class PersonaService {
       .map(res => res.json());
   }
 
+  public validarCorreo(id, correo) {
+    return this.http.get(this.urlBase + "api/Persona/validarCorreo/" + id + "/" + correo)
+      .map(res => res.json());
+  }
+
 }
