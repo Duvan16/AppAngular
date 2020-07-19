@@ -23,7 +23,7 @@ export class ProductoFormMantenimientoComponent implements OnInit {
         'idproducto': new FormControl("0"),
         'nombre': new FormControl("", [Validators.required, Validators.maxLength(100)]),
         'precio': new FormControl("0", [Validators.required]),
-        'stock': new FormControl("0", [Validators.required]),
+        'stock': new FormControl("0", [Validators.required, this.noPuntoDecimal]),
         'idmarca': new FormControl("", [Validators.required]),
         'idcategoria': new FormControl("", [Validators.required])
       }
@@ -63,6 +63,15 @@ export class ProductoFormMantenimientoComponent implements OnInit {
           this.router.navigate(["./mantenimiento-producto"]);
         });
     }
+  }
+
+  noPuntoDecimal(control: FormControl) {
+    if (control.value != null && control.value != "") {
+      if ((<string>control.value.toString()).indexOf(".") > -1) {
+        return { puntoDecimal: true };
+      }
+    }
+    return null;
   }
 
 }
