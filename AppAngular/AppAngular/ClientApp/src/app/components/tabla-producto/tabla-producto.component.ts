@@ -21,4 +21,13 @@ export class TablaProductoComponent implements OnInit {
     );
   }
 
+  eliminarProducto(idProducto) {
+    this.producto.eliminarProducto(idProducto).subscribe(p => {
+      //
+      this.producto.getProducto().subscribe(
+        data => this.productos = data
+      );
+    });
+  }
+
 }

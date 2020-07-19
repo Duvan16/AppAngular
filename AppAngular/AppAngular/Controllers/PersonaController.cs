@@ -89,6 +89,7 @@ namespace AppAngular.Controllers
                         oPersona.Apmaterno = oPersonaCLS.apMaterno;
                         oPersona.Correo = oPersonaCLS.correo;
                         oPersona.Telefono = oPersonaCLS.telefono;
+                        oPersona.Fechanacimiento = oPersonaCLS.fechaNacimiento;
                         oPersona.Bhabilitado = 1;
                         oPersona.Btieneusuario = 0;
                         bd.Persona.Add(oPersona);
