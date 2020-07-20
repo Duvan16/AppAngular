@@ -13,7 +13,7 @@
       <td>{{usuario.nombreTipoUsuario}}</td>
       <td *ngIf="isMantenimiento">
         <i [routerLink]="['/usuario-form-mantenimiento',usuario.iidusuario]" class="glyphicon glyphicon-edit btn btn-warning"></i>
-        <i class="glyphicon glyphicon-trash btn btn-danger"></i>
+        <i class="glyphicon glyphicon-trash btn btn-danger" (click)="eliminar(usuario.iidusuario)"></i>
       </td>
     </tr>
   </tbody>

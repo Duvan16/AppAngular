@@ -185,5 +185,27 @@ namespace AppAngular.Controllers
             }
             return rpta;
         }
+
+        [HttpGet]
+        [Route("api/Usuario/eliminarUsuario/{idUsuario}")]
+        public int eliminarUsuario(int idUsuario)
+        {
+            int rpta = 0;
+            try
+            {
+                using (BDRestauranteContext bd = new BDRestauranteContext())
+                {
+                    Usuario oUsuario = bd.Usuario.Where(p => p.Iidpersona == idUsuario).First();
+                    oUsuario.Bhabilitado = 0;
+                    bd.SaveChanges();
+                    rpta = 1;
+                }
+            }
+            catch (Exception)
+            {
+                rpta = 0;
+            }
+            return rpta;
+        }
     }
 }
