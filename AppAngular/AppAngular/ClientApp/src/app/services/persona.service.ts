@@ -40,4 +40,8 @@ export class PersonaService {
       .map(res => res.json());
   }
 
+  public listarPersonaCombo() {
+    return this.http.get(this.urlBase + "api/Persona/listarPersonaCombo")
+      .map(res => res.json());
+  }
 }

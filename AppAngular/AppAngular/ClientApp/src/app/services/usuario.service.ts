@@ -23,4 +23,17 @@ export class UsuarioService {
     return this.http.get(this.urlBase + "api/Usuario/filtrarUsuarioPorTipo/" + idTipo)
       .map(res => res.json());
   }
+  public validarUsuario(idUsuario, nombre) {
+    return this.http.get(this.urlBase + "api/Usuario/validarUsuario/" + idUsuario + "/" + nombre)
+      .map(res => res.json());
+  }
+  public recuperarUsuario(idUsuario) {
+    return this.http.get(this.urlBase + "api/Usuario/recuperarUsuario/" + idUsuario)
+      .map(res => res.json());
+  }
+
+  public guardarDatos(usuarioClS) {
+    return this.http.post(this.urlBase + "api/Usuario/guardarDatos", usuarioClS).map(res => res.json())
+  }
+
 }

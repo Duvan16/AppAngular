@@ -193,5 +193,23 @@ namespace AppAngular.Controllers
             }
             return rpta;
         }
+
+        [HttpGet]
+        [Route("api/Persona/listarPersonaCombo")]
+        public IEnumerable<PersonaCLS> listarPersonaCombo()
+        {
+            using (BDRestauranteContext bd = new BDRestauranteContext())
+            {
+                IEnumerable<PersonaCLS> listaPersona = (from persona in bd.Persona
+                                                        where persona.Bhabilitado == 1
+                                                        && persona.Btieneusuario == 0
+                                                        select new PersonaCLS
+                                                        {
+                                                            iidpersona = persona.Iidpersona,
+                                                            nombreCompleto = persona.Nombre + " " + persona.Appaterno + " " + persona.Appaterno
+                                                        }).ToList();
+                return listaPersona;
+            }
+        }
     }
 }
