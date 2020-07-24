@@ -48,8 +48,13 @@
               </a>
             </li>
             <li [routerLinkActive]='["link-active"]'>
-              <a [routerLink]='["/login"]' (click)='collapse()'>
+              <a [routerLink]='["/login"]' (click)='collapse()' *ngIf="!login">
                 <span class='glyphicon glyphicon-th-list'></span> Login
+              </a>
+            </li>
+            <li [routerLinkActive]='["link-active"]' *ngIf="login">
+              <a (click)='cerrarSesion()' >
+                <span class='glyphicon glyphicon-th-list'></span> Cerrar Sesión
               </a>
             </li>
           </ul>

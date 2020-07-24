@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UsuarioService } from '../../services/usuario.service';
 import { Router } from '@angular/router';
@@ -12,7 +12,10 @@ export class LoginComponent implements OnInit {
 
   usuario: FormGroup;
   error: boolean = false;
-  constructor(private usuarioService: UsuarioService, private router: Router) {
+  urlBase: string = "";
+  constructor(private usuarioService: UsuarioService, private router: Router,
+    @Inject("BASE_URL") url: string) {
+    this.urlBase = url;
     this.usuario = new FormGroup({
       'nombreusuario': new FormControl("", Validators.required),
       'contra': new FormControl("", Validators.required)
@@ -30,7 +33,8 @@ export class LoginComponent implements OnInit {
           this.error = true;
         } else {
           //esta bien
-          this.router.navigate(["/componente-bienvenida"]);
+          //this.router.navigate(["/componente-bienvenida"]);
+          window.location.href = this.urlBase + "componente-bienvenida";
           this.error = false;
         }
       })

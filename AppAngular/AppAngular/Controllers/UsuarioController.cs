@@ -255,5 +255,22 @@ namespace AppAngular.Controllers
             }
             return oSeguridadCLS;
         }
+
+        [HttpGet]
+        [Route("api/Usuario/cerrarSesion")]
+        public SeguridadCLS cerrarSesion()
+        {
+            SeguridadCLS oSeguridadCls = new SeguridadCLS();
+            try
+            {
+                HttpContext.Session.Remove("usuario");
+                oSeguridadCls.valor = "OK";
+            }
+            catch (Exception)
+            {
+                oSeguridadCls.valor = "";
+            }
+            return oSeguridadCls;
+        }
     }
 }
