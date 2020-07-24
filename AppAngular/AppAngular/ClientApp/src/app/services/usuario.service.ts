@@ -1,12 +1,13 @@
 import { Injectable, Inject } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class UsuarioService {
 
   urlBase: string = "";
-  constructor(private http: Http, @Inject("BASE_URL") url: string) {
+  constructor(private http: Http, @Inject("BASE_URL") url: string, private router: Router) {
     this.urlBase = url;
   }
 
@@ -38,6 +39,23 @@ export class UsuarioService {
 
   public eliminarUsuario(idUsuario) {
     return this.http.get(this.urlBase + "api/Usuario/eliminarUsuario/" + idUsuario).map(res => res.json())
+  }
+
+  public login(usuario) {
+    return this.http.post(this.urlBase + "api/Usuario/login/", usuario).map(res => res.json());
+  }
+
+  public obtenerVariableSession() {
+    return this.http.get("api/Usuario/obtenerVariableSession").map(res => {
+      var data = res.json();
+      var inf = data.valor;
+      if (inf == "") {
+        this.router.navigate(["/pagina-error"])
+        return false;
+      } else {
+        return true;
+      }
+    });
   }
 
 }

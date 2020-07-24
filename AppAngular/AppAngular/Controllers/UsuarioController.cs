@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Transactions;
 using AppAngular.Clases;
 using AppAngular.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AppAngular.Controllers
@@ -95,13 +96,13 @@ namespace AppAngular.Controllers
             {
                 using (BDRestauranteContext bd = new BDRestauranteContext())
                 {
-                    if (idUsuario==0)
+                    if (idUsuario == 0)
                     {
                         rpta = bd.Usuario.Where(p => p.Nombreusuario.ToLower() == nombre.ToLower()).Count();
                     }
                     else
                     {
-                        rpta = bd.Usuario.Where(p => p.Nombreusuario.ToLower() == nombre.ToLower() && p.Iidusuario!=idUsuario).Count();
+                        rpta = bd.Usuario.Where(p => p.Nombreusuario.ToLower() == nombre.ToLower() && p.Iidusuario != idUsuario).Count();
                     }
                 }
             }
@@ -140,7 +141,7 @@ namespace AppAngular.Controllers
                 {
                     using (var transaccion = new TransactionScope())
                     {
-                        if (oUsuarioCLS.iidusuario==0)
+                        if (oUsuarioCLS.iidusuario == 0)
                         {
                             // Agregar usuario
                             Usuario oUsuario = new Usuario();
@@ -164,7 +165,7 @@ namespace AppAngular.Controllers
                             bd.SaveChanges();
                             transaccion.Complete();
                             rpta = 1;
-                        
+
                         }
                         else
                         {
@@ -206,6 +207,53 @@ namespace AppAngular.Controllers
                 rpta = 0;
             }
             return rpta;
+        }
+
+        [HttpPost]
+        [Route("api/Usuario/login/")]
+        public UsuarioCLS login([FromBody]UsuarioCLS oUsuarioCLS)
+        {
+            int rpta = 0;
+            UsuarioCLS oUsuario = new UsuarioCLS();
+
+            using (BDRestauranteContext bd = new BDRestauranteContext())
+            {
+                SHA256Managed sha = new SHA256Managed();
+                byte[] dataNoCifrada = Encoding.Default.GetBytes(oUsuarioCLS.contra);
+                byte[] dataCifrada = sha.ComputeHash(dataNoCifrada);
+                string claveCifrada = BitConverter.ToString(dataCifrada).Replace("-", "");
+                rpta = bd.Usuario.Where(p => p.Nombreusuario.ToUpper() == oUsuarioCLS.nombreusuario.ToUpper() && p.Contra == claveCifrada).Count();
+                if (rpta == 1)
+                {
+                    Usuario oUsuarioRecuperar = bd.Usuario.Where(p => p.Nombreusuario.ToUpper() == oUsuarioCLS.nombreusuario.ToUpper() && p.Contra == claveCifrada).First();
+                    HttpContext.Session.SetString("usuario", oUsuarioCLS.iidusuario.ToString());
+                    oUsuario.iidusuario = oUsuarioRecuperar.Iidusuario;
+                    oUsuario.nombreusuario = oUsuarioRecuperar.Nombreusuario;
+                }
+                else
+                {
+                    oUsuario.iidusuario = 0;
+                    oUsuario.nombreusuario = "";
+                }
+            }
+            return oUsuario;
+        }
+
+        [HttpGet]
+        [Route("api/Usuario/obtenerVariableSession")]
+        public SeguridadCLS obtenerVariableSession()
+        {
+            SeguridadCLS oSeguridadCLS = new SeguridadCLS();
+            string variableSession = HttpContext.Session.GetString("usuario");
+            if (variableSession is null)
+            {
+                oSeguridadCLS.valor = "";
+            }
+            else
+            {
+                oSeguridadCLS.valor = variableSession;
+            }
+            return oSeguridadCLS;
         }
     }
 }

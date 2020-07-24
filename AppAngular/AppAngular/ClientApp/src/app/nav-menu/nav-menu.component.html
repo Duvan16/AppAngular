@@ -47,6 +47,11 @@
                 <span class='glyphicon glyphicon-th-list'></span> Mantenimiento Usuario
               </a>
             </li>
+            <li [routerLinkActive]='["link-active"]'>
+              <a [routerLink]='["/login"]' (click)='collapse()'>
+                <span class='glyphicon glyphicon-th-list'></span> Login
+              </a>
+            </li>
           </ul>
         </div>
     </div>
