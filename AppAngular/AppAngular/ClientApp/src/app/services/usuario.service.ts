@@ -88,4 +88,16 @@ export class UsuarioService {
     return this.http.get("api/Usuario/listarPaginas").map(res => res.json());
   }
 
+  public listarTipoUsuarios() {
+    return this.http.get(this.urlBase + "api/TipoUsuario/listarTipoUsuarios").map(res => res.json());
+  }
+
+  public listarPaginasTiposUsuario() {
+    return this.http.get(this.urlBase + "api/TipoUsuario/listarPaginasTiposUsuario").map(res => res.json());
+  }
+
+  public listarPaginasRecuperar(iidTipoUsuario) {
+    return this.http.get(this.urlBase + "api/TipoUsuario/listarPaginasRecuperar/" + iidTipoUsuario).map(res => res.json());
+  }
+
 }

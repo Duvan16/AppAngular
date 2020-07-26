@@ -42,6 +42,9 @@ import { PaginaErrorLoginComponent } from './components/pagina-error-login/pagin
 import { PermisoErrorPaginaComponent } from './components/permiso-error-pagina/permiso-error-pagina.component';
 import { SeguridadGuard } from './components/guards/seguridad.guard';
 import { ComponenteBienvenidaComponent } from './components/componente-bienvenida/componente-bienvenida.component';
+import { MantenimientoTipoUsuarioComponent } from './components/mantenimiento-tipo-usuario/mantenimiento-tipo-usuario.component';
+import { TipoUsuarioFormMantenimientoComponent } from './components/tipo-usuario-form-mantenimiento/tipo-usuario-form-mantenimiento.component';
+import { TablaTipoUsuarioComponent } from './components/tabla-tipo-usuario/tabla-tipo-usuario.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +75,10 @@ import { ComponenteBienvenidaComponent } from './components/componente-bienvenid
     LoginComponent,
     PaginaErrorLoginComponent,
     PermisoErrorPaginaComponent,
-    ComponenteBienvenidaComponent
+    ComponenteBienvenidaComponent,
+    MantenimientoTipoUsuarioComponent,
+    TipoUsuarioFormMantenimientoComponent,
+    TablaTipoUsuarioComponent
   ],
   imports: [
     HttpModule,
@@ -86,16 +92,18 @@ import { ComponenteBienvenidaComponent } from './components/componente-bienvenid
       { path: 'filtradoProductoNombre', component: FiltradoProductoNombreComponent, canActivate: [SeguridadGuard] },
       { path: 'FiltradoPersonaNombreCompleto', component: FiltradoPersonaNombreCompletoComponent, canActivate: [SeguridadGuard] },
       { path: 'filtradoUsuarioTipo', component: FiltradoUsuarioTipoUsuarioComponent, canActivate: [SeguridadGuard] },
-      { path: 'mantenimiento-persona', component: MantenimientoPersonaComponent, canActivate: [SeguridadGuard]  },
-      { path: 'persona-form-mantenimiento/:id', component: PersonaFormMantenimientoComponent, canActivate: [SeguridadGuard]  },
-      { path: 'mantenimiento-producto', component: MantenimientoProductoComponent, canActivate: [SeguridadGuard]  },
-      { path: 'producto-form-mantenimiento/:id', component: ProductoFormMantenimientoComponent, canActivate: [SeguridadGuard]  },
-      { path: 'mantenimiento-usuario', component: MantenimientoUsuarioComponent, canActivate: [SeguridadGuard]  },
-      { path: 'usuario-form-mantenimiento/:id', component: UsuarioFormMantenimientoComponent, canActivate: [SeguridadGuard]  },
+      { path: 'mantenimiento-persona', component: MantenimientoPersonaComponent, canActivate: [SeguridadGuard] },
+      { path: 'persona-form-mantenimiento/:id', component: PersonaFormMantenimientoComponent, canActivate: [SeguridadGuard] },
+      { path: 'mantenimiento-producto', component: MantenimientoProductoComponent, canActivate: [SeguridadGuard] },
+      { path: 'producto-form-mantenimiento/:id', component: ProductoFormMantenimientoComponent, canActivate: [SeguridadGuard] },
+      { path: 'mantenimiento-usuario', component: MantenimientoUsuarioComponent, canActivate: [SeguridadGuard] },
+      { path: 'usuario-form-mantenimiento/:id', component: UsuarioFormMantenimientoComponent, canActivate: [SeguridadGuard] },
       { path: 'login', component: LoginComponent },
       { path: 'pagina-error', component: PaginaErrorLoginComponent },
       { path: 'pagina-error-permiso', component: PermisoErrorPaginaComponent },
-      { path: 'componente-bienvenida', component: ComponenteBienvenidaComponent }
+      { path: 'componente-bienvenida', component: ComponenteBienvenidaComponent },
+      { path: 'mantenimiento-tipo-usuario', component: MantenimientoTipoUsuarioComponent },
+      { path: 'tipo-usuario-form-mantenimiento/:id', component: TipoUsuarioFormMantenimientoComponent }
     ])
   ],
   providers: [ProductoService, CategoriaService, PersonaService, UsuarioService, SeguridadGuard],
