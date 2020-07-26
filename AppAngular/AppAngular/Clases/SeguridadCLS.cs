@@ -9,5 +9,7 @@ namespace AppAngular.Clases
     {
         public string clave { get; set; }
         public string valor { get; set; }
+
+        public List<PaginaCLS> lista { get; set; }
     }
 }

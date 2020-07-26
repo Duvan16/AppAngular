@@ -11,6 +11,6 @@ export class SeguridadGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    return this.usuarioService.obtenerVariableSession();
+    return this.usuarioService.obtenerVariableSession(next);
   }
 }

@@ -12,12 +12,12 @@
         <div class='clearfix'></div>
         <div class='navbar-collapse collapse' [ngClass]='{ "in": isExpanded }'>
           <ul class='nav navbar-nav'>
-            <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
-              <a [routerLink]='["/filtradoProductoCategoria"]' (click)='collapse()'>
-                <span class='glyphicon glyphicon-home'></span> Filtrar producto por categoría
+            <li *ngFor="let menu of menus" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
+              <a [routerLink]='[menu.accion]' (click)='collapse()'>
+                <span class='glyphicon glyphicon-home'></span> {{menu.mensaje}}
               </a>
             </li>
-            <li [routerLinkActive]='["link-active"]'>
+            <!--<li [routerLinkActive]='["link-active"]'>
               <a [routerLink]='["/filtradoProductoNombre"]' (click)='collapse()'>
                 <span class='glyphicon glyphicon-education'></span> Filtrar producto por Nombre
               </a>
@@ -46,7 +46,7 @@
               <a [routerLink]='["/mantenimiento-usuario"]' (click)='collapse()'>
                 <span class='glyphicon glyphicon-th-list'></span> Mantenimiento Usuario
               </a>
-            </li>
+            </li>-->
             <li [routerLinkActive]='["link-active"]'>
               <a [routerLink]='["/login"]' (click)='collapse()' *ngIf="!login">
                 <span class='glyphicon glyphicon-th-list'></span> Login

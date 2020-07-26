@@ -11,7 +11,7 @@ export class NavMenuComponent implements OnInit {
 
   isExpanded = false;
   login: boolean = false;
-
+  menus: any;
   constructor(private usuarioService: UsuarioService, private router: Router) {
 
   }
@@ -20,6 +20,10 @@ export class NavMenuComponent implements OnInit {
     this.usuarioService.obtenerSession().subscribe(data => {
       if (data) {
         this.login = true;
+        //Llamar a listar paginas
+        this.usuarioService.listarPaginas().subscribe(dato => {
+          this.menus = dato;
+        })
       } else {
         this.login = false;
         this.router.navigate(["/login"]);
@@ -39,6 +43,7 @@ export class NavMenuComponent implements OnInit {
     this.usuarioService.cerrarSesion().subscribe(res => {
       if (res.valor == "OK") {
         this.login = false;
+        this.router.navigate(["/login"]);
       }
     })
   }

@@ -45,7 +45,7 @@ export class UsuarioService {
     return this.http.post(this.urlBase + "api/Usuario/login/", usuario).map(res => res.json());
   }
 
-  public obtenerVariableSession() {
+  public obtenerVariableSession(next) {
     return this.http.get("api/Usuario/obtenerVariableSession").map(res => {
       var data = res.json();
       var inf = data.valor;
@@ -53,6 +53,16 @@ export class UsuarioService {
         this.router.navigate(["/pagina-error"])
         return false;
       } else {
+        var pagina = next["url"][0].path;
+        if (data.lista != null) {
+          var paginas = data.lista.map(pagina => pagina.accion);
+          if (paginas.indexOf(pagina) > -1 && pagina != "Login") {
+            return true;
+          } else {
+            this.router.navigate(["/pagina-error-permiso"]);
+            return false;
+          }
+        }
         return true;
       }
     });
@@ -72,6 +82,10 @@ export class UsuarioService {
 
   public cerrarSesion() {
     return this.http.get("api/Usuario/cerrarSesion").map(res => res.json());
+  }
+
+  public listarPaginas() {
+    return this.http.get("api/Usuario/listarPaginas").map(res => res.json());
   }
 
 }
