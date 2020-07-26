@@ -20,14 +20,13 @@ export class TablaTipoUsuarioComponent implements OnInit {
   }
 
   eliminar(iidtipousuario) {
-    //if (confirm("¿Desea eliminar el registro?")) {
-    //  this.producto.eliminarProducto(idProducto).subscribe(p => {
-    //    //
-    //    this.producto.getProducto().subscribe(
-    //      data => this.productos = data
-    //    );
-    //  });
-    //}
+    if (confirm("¿Desea eliminar el registro?")) {
+      this.usuarioService.eliminarTipoUsuario(iidtipousuario).subscribe(res => {
+        this.usuarioService.listarTipoUsuarios().subscribe(data => {
+          this.tipoUsuarios = data
+        });
+      });
+    }
   }
 
 }

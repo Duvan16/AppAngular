@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UsuarioService } from '../../services/usuario.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'tipo-usuario-form-mantenimiento',
@@ -15,9 +15,9 @@ export class TipoUsuarioFormMantenimientoComponent implements OnInit {
   parametro: string;
   titulo: string;
 
-  constructor(private usuarioService: UsuarioService, private activatedRoute: ActivatedRoute) {
+  constructor(private usuarioService: UsuarioService, private activatedRoute: ActivatedRoute, private router: Router) {
     this.tipoUsuario = new FormGroup({
-      "iidtipousuario": new FormControl(""),
+      "iidtipousuario": new FormControl("0"),
       "nombre": new FormControl("", [Validators.required, Validators.maxLength(100)]),
       "descripcion": new FormControl("", [Validators.required, Validators.maxLength(100)]),
       "valores": new FormControl("")
@@ -57,16 +57,20 @@ export class TipoUsuarioFormMantenimientoComponent implements OnInit {
               check.checked = true;
             }
           }
-        },500)
+        }, 500)
       });
     }
   }
 
   guardarDatos() {
-
+    if (this.tipoUsuario.valid == true) {
+      this.usuarioService.guardarDatosTipoUsuario(this.tipoUsuario.value).subscribe(res => {
+        this.router.navigate(["/mantenimiento-tipo-usuario"])
+      })
+    }
   }
 
-  varCheck() {
+  verCheck() {
     var seleccionados = "";
     var checks = document.getElementsByClassName("check");
     var check;

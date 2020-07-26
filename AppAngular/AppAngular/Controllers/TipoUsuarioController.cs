@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 using AppAngular.Clases;
 using AppAngular.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -83,6 +84,108 @@ namespace AppAngular.Controllers
 
                 return oTipoUsuarioCLS;
             }
+        }
+
+        [HttpPost]
+        [Route("api/TipoUsuario/guardarDatosTipoUsuario")]
+        public int guardarDatosTipoUsuario([FromBody]TipoUsuarioCLS oTipoUsuarioCLS)
+        {
+            int rpta = 0;
+            try
+            {
+                using (BDRestauranteContext bd = new BDRestauranteContext())
+                {
+                    using (var transaccion = new TransactionScope())
+                    {
+                        if (oTipoUsuarioCLS.iidtipousuario == 0)
+                        {
+                            TipoUsuario oTipoUsuario = new TipoUsuario();
+                            oTipoUsuario.Nombre = oTipoUsuarioCLS.nombre;
+                            oTipoUsuario.Descripcion = oTipoUsuarioCLS.descripcion;
+                            oTipoUsuario.Bhabilitado = 1;
+                            bd.TipoUsuario.Add(oTipoUsuario);
+
+                            int idTipoUsuario = oTipoUsuario.Iidtipousuario;
+                            string[] ids = oTipoUsuarioCLS.valores.Split("$");
+                            for (int i = 0; i < ids.Length; i++)
+                            {
+                                PaginaTipoUsuario oPaginaTipoUsuario = new PaginaTipoUsuario();
+                                oPaginaTipoUsuario.Iidpagina = int.Parse(ids[i]);
+                                oPaginaTipoUsuario.Iidtipousuario = idTipoUsuario;
+                                oPaginaTipoUsuario.Bhabilitado = 1;
+                                bd.PaginaTipoUsuario.Add(oPaginaTipoUsuario);
+                            }
+                            bd.SaveChanges();
+                            transaccion.Complete();
+                            rpta = 1;
+                        }else
+                        {
+                            //Recuperamos la información
+                            TipoUsuario oTipoUsuario = bd.TipoUsuario.Where(p => p.Iidtipousuario == oTipoUsuarioCLS.iidtipousuario).First();
+                            oTipoUsuario.Nombre = oTipoUsuarioCLS.nombre;
+                            oTipoUsuario.Descripcion = oTipoUsuarioCLS.descripcion;
+                            bd.SaveChanges();
+                            string[] ids = oTipoUsuarioCLS.valores.Split("$");
+                            //Aca con el Id Tipo usuario (paginas asociadas lo vamos a deshabilitar)
+                            List<PaginaTipoUsuario> lista = bd.PaginaTipoUsuario.Where(p => p.Iidtipousuario == oTipoUsuarioCLS.iidtipousuario).ToList();
+                            foreach (PaginaTipoUsuario pag in lista)
+                            {
+                                pag.Bhabilitado = 0;
+                            }
+                            //Editar (si es que el id de pagina es nuevo, lo insertamos, si es un editar
+                            //cambiamos de bhabilitado 0 a 1
+                            int cantidad;
+                            for (int i = 0; i < ids.Length; i++)
+                            {
+                                cantidad = lista.Where(p => p.Iidpagina == int.Parse(ids[i])).Count();
+                                if (cantidad==0)
+                                {
+                                    PaginaTipoUsuario oPaginaTipoUsuario = new PaginaTipoUsuario();
+                                    oPaginaTipoUsuario.Iidpagina = int.Parse(ids[i]);
+                                    oPaginaTipoUsuario.Iidtipousuario = oTipoUsuarioCLS.iidtipousuario;
+                                    oPaginaTipoUsuario.Bhabilitado = 1;
+                                    bd.PaginaTipoUsuario.Add(oPaginaTipoUsuario);
+                                }
+                                else
+                                {
+                                    PaginaTipoUsuario oP = lista.Where(p => p.Iidpagina == int.Parse(ids[i])).First();
+                                    oP.Bhabilitado = 1;
+                                }
+                            }
+                            bd.SaveChanges();
+                            transaccion.Complete();
+                            rpta = 1;
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+            return rpta;
+        }
+
+        [HttpGet]
+        [Route("api/TipoUsuario/eliminarTipoUsuario/{iidTipoUsuario}")]
+        public int eliminarTipoUsuario(int iidTipoUsuario)
+        {
+            int rpta = 0;
+            try
+            {
+                using(BDRestauranteContext bd = new BDRestauranteContext())
+                {
+                    TipoUsuario oTipoUsuario = bd.TipoUsuario.Where(p => p.Iidtipousuario == iidTipoUsuario).First();
+                    oTipoUsuario.Bhabilitado = 0;
+                    bd.SaveChanges();
+                    rpta = 1;
+                }
+            }
+            catch (Exception ex)
+            {
+                rpta = 0;
+            }
+            return rpta;
         }
     }
 }
