@@ -16,6 +16,7 @@ export class ProductoFormMantenimientoComponent implements OnInit {
   marcas: any;
   titulo: string;
   parametro: string;
+  foto: any;
   constructor(private productoService: ProductoService, private categoriaService: CategoriaService,
     private activatedRoute: ActivatedRoute, private router: Router) {
     this.producto = new FormGroup(
@@ -25,7 +26,8 @@ export class ProductoFormMantenimientoComponent implements OnInit {
         'precio': new FormControl("0", [Validators.required]),
         'stock': new FormControl("0", [Validators.required, this.noPuntoDecimal]),
         'idmarca': new FormControl("", [Validators.required]),
-        'idcategoria': new FormControl("", [Validators.required])
+        'idcategoria': new FormControl("", [Validators.required]),
+        'foto': new FormControl("")
       }
     );
     this.activatedRoute.params.subscribe(param => {
@@ -51,6 +53,10 @@ export class ProductoFormMantenimientoComponent implements OnInit {
         this.producto.controls["stock"].setValue(data.stock);
         this.producto.controls["idmarca"].setValue(data.idmarca);
         this.producto.controls["idcategoria"].setValue(data.idcategoria);
+        if (data.foto == null) {
+          this.foto = "";
+        } else
+          this.foto = data.foto;
       });
 
     }
@@ -58,6 +64,9 @@ export class ProductoFormMantenimientoComponent implements OnInit {
 
   guardarDatos() {
     if (this.producto.valid) {
+
+      this.producto.controls["foto"].setValue(this.foto);
+
       this.productoService.registrarProducto(this.producto.value)
         .subscribe(p => {
           this.router.navigate(["./mantenimiento-producto"]);
@@ -72,6 +81,17 @@ export class ProductoFormMantenimientoComponent implements OnInit {
       }
     }
     return null;
+  }
+
+  changeFoto() {
+    var file = (<HTMLInputElement>document.getElementById("fupFoto")).files[0];
+    var fileReader = new FileReader();
+
+    fileReader.onloadend = () => {
+      this.foto = fileReader.result;
+    }
+
+    fileReader.readAsDataURL(file);
   }
 
 }

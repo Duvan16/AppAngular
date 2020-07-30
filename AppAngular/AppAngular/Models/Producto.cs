@@ -17,6 +17,7 @@ namespace AppAngular.Models
         public int? Bhabilitado { get; set; }
         public int? Stock { get; set; }
         public int? Iidmarca { get; set; }
+        public string Foto { get; set; }
 
         public Categoria IidcategoriaNavigation { get; set; }
         public Marca IidmarcaNavigation { get; set; }

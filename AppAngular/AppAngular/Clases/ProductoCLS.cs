@@ -17,5 +17,7 @@ namespace AppAngular.Clases
 
         public int idmarca { get; set; }
         public int idcategoria { get; set; }
+
+        public string foto { get; set; }
     }
 }

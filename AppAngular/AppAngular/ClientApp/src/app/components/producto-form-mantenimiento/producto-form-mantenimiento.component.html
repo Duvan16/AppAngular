@@ -53,6 +53,10 @@
           Esta prohibido poner un punto decimal
         </div>
       </div>
+      <div class="form-group">
+        <img src="{{foto}}" width="200" height="200" />
+        <input type="file" (change)="changeFoto()" id="fupFoto" class="form-control" accept="image/*"  />
+      </div>
       <div>
         <button [disabled]="!producto.valid" type="submit" class="btn btn-primary">Guardar</button>
         <button [routerLink]="['/mantenimiento-producto']" class="btn btn-danger">Regresar</button>

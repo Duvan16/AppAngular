@@ -126,7 +126,8 @@ namespace AppAngular.Controllers
                                                     idcategoria = (int)producto.Iidcategoria,
                                                     idmarca = (int)producto.Iidmarca,
                                                     precio = (decimal)producto.Precio,
-                                                    stock = (int)producto.Stock
+                                                    stock = (int)producto.Stock,
+                                                    foto = producto.Foto
                                                 }).First();
 
                     return oProductoCLS;
@@ -156,6 +157,7 @@ namespace AppAngular.Controllers
                         oProducto.Iidmarca = oProductoCLS.idmarca;
                         oProducto.Iidcategoria = oProductoCLS.idcategoria;
                         oProducto.Bhabilitado = 1;
+                        oProducto.Foto = oProductoCLS.foto;
                         bd.Producto.Add(oProducto);
                         bd.SaveChanges();
                         rpta = 1;
@@ -168,6 +170,7 @@ namespace AppAngular.Controllers
                         oProducto.Stock = oProductoCLS.stock;
                         oProducto.Iidmarca = oProductoCLS.idmarca;
                         oProducto.Iidcategoria = oProductoCLS.idcategoria;
+                        oProducto.Foto = oProductoCLS.foto;
                         bd.SaveChanges();
                         rpta = 1;
                     }
