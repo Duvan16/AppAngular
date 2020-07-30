@@ -45,6 +45,10 @@ import { ComponenteBienvenidaComponent } from './components/componente-bienvenid
 import { MantenimientoTipoUsuarioComponent } from './components/mantenimiento-tipo-usuario/mantenimiento-tipo-usuario.component';
 import { TipoUsuarioFormMantenimientoComponent } from './components/tipo-usuario-form-mantenimiento/tipo-usuario-form-mantenimiento.component';
 import { TablaTipoUsuarioComponent } from './components/tabla-tipo-usuario/tabla-tipo-usuario.component';
+import { TablaPaginaComponent } from './components/tabla-pagina/tabla-pagina.component';
+import { MantenimientoPaginaComponent } from './components/mantenimiento-pagina/mantenimiento-pagina.component';
+import { PaginaFormMantenimientoComponent } from './components/pagina-form-mantenimiento/pagina-form-mantenimiento.component';
+import { NoEncontroInformacionComponent } from './components/no-encontro-informacion/no-encontro-informacion.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +82,11 @@ import { TablaTipoUsuarioComponent } from './components/tabla-tipo-usuario/tabla
     ComponenteBienvenidaComponent,
     MantenimientoTipoUsuarioComponent,
     TipoUsuarioFormMantenimientoComponent,
-    TablaTipoUsuarioComponent
+    TablaTipoUsuarioComponent,
+    TablaPaginaComponent,
+    MantenimientoPaginaComponent,
+    PaginaFormMantenimientoComponent,
+    NoEncontroInformacionComponent
   ],
   imports: [
     HttpModule,
@@ -102,8 +110,11 @@ import { TablaTipoUsuarioComponent } from './components/tabla-tipo-usuario/tabla
       { path: 'pagina-error', component: PaginaErrorLoginComponent },
       { path: 'pagina-error-permiso', component: PermisoErrorPaginaComponent },
       { path: 'componente-bienvenida', component: ComponenteBienvenidaComponent },
-      { path: 'mantenimiento-tipo-usuario', component: MantenimientoTipoUsuarioComponent },
-      { path: 'tipo-usuario-form-mantenimiento/:id', component: TipoUsuarioFormMantenimientoComponent }
+      { path: 'mantenimiento-tipo-usuario', component: MantenimientoTipoUsuarioComponent, canActivate: [SeguridadGuard] },
+      { path: 'tipo-usuario-form-mantenimiento/:id', component: TipoUsuarioFormMantenimientoComponent },
+      { path: 'mantenimiento-pagina', component: MantenimientoPaginaComponent, canActivate: [SeguridadGuard] },
+      { path: 'pagina-form-mantenimiento/:id', component: PaginaFormMantenimientoComponent },
+      { path: 'no-encontro-informacion', component: NoEncontroInformacionComponent },
     ])
   ],
   providers: [ProductoService, CategoriaService, PersonaService, UsuarioService, SeguridadGuard],

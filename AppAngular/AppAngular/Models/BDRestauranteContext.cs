@@ -113,6 +113,8 @@ namespace AppAngular.Models
 
                 entity.Property(e => e.Bhabilitado).HasColumnName("BHABILITADO");
 
+                entity.Property(e => e.Bvisible).HasColumnName("BVISIBLE");
+
                 entity.Property(e => e.Mensaje)
                     .HasColumnName("MENSAJE")
                     .HasMaxLength(100)

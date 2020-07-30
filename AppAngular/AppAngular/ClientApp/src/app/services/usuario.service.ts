@@ -108,4 +108,21 @@ export class UsuarioService {
     return this.http.get(this.urlBase + "api/TipoUsuario/eliminarTipoUsuario/" + iidTipoUsuario).map(res => res.json());
   }
 
+
+  public listarPaginasBD() {
+    return this.http.get("api/Pagina/listarPaginasBD").map(res => res.json());
+  }
+
+  public guardarPagina(paginaCLS) {
+    return this.http.post(this.urlBase + "api/Pagina/guardarPagina", paginaCLS).map(res => res.json());
+  }
+
+  public recuperarPagina(idPagina) {
+    return this.http.get("api/Pagina/recuperarPagina/" + idPagina).map(res => res.json());
+  }
+
+  public eliminarPagina(idPagina) {
+    return this.http.get("api/Pagina/eliminarPagina/" + idPagina).map(res => res.json());
+  }
+
 }

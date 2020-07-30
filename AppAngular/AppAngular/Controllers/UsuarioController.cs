@@ -268,9 +268,10 @@ namespace AppAngular.Controllers
                                     on paginaTipo.Iidpagina equals pagina.Iidpagina
                                     where usuario.Iidusuario == idUsuario
                                     && usuario.Iidtipousuario == idTipoUsuario
+                                    && paginaTipo.Bhabilitado == 1
                                     select new PaginaCLS
                                     {
-                                        accion=pagina.Accion.Substring(1)
+                                        accion = pagina.Accion.Substring(1)
                                     }).ToList();
 
                     oSeguridadCLS.lista = listaPaginas;
